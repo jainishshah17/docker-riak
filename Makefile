@@ -3,7 +3,7 @@
 all: stop-cluster riak-container start-cluster
 
 build riak-container:
-	docker build -t "hectcastro/riak" .
+	docker build -t "hectcastro/riak20" .
 
 start-cluster:
 	./bin/start-cluster.sh
