@@ -22,7 +22,7 @@ CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-riak_kv_bitcask_backend}
 
-if sudo docker ps -a | grep "docker.getzephyr.com/riak" >/dev/null; then
+if sudo docker ps -a | grep "riak" >/dev/null; then
   echo ""
   echo "It looks like you already have some Riak containers running."
   echo "Please take them down before attempting to bring up another"
@@ -70,7 +70,7 @@ do
                -p $publish_pb_port:$publish_pb_port \
                --link "riak01:seed" \
                --name "riak${index}" \
-               -d docker.getzephyr.com/riak > /dev/null 2>&1
+               -d riak > /dev/null 2>&1
   else
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
@@ -78,7 +78,7 @@ do
                -p $publish_http_port:$publish_http_port \
                -p $publish_pb_port:$publish_pb_port \
                --name "riak${index}" \
-               -d docker.getzephyr.com/riak > /dev/null 2>&1
+               -d riak > /dev/null 2>&1
   fi
 
   CONTAINER_ID=$(sudo docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)

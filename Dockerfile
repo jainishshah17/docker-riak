@@ -3,7 +3,7 @@
 # VERSION       0.5.0
 
 FROM phusion/baseimage:0.9.13
-MAINTAINER Hector Castro hectcastro@gmail.com
+MAINTAINER Jainish Shah Jainish.shah@getzephyr.com
 
 # Environmental variables
 ENV DEBIAN_FRONTEND noninteractive
