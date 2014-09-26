@@ -66,17 +66,16 @@ do
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
-               -p $publish_http_port:$publish_http_port \
-               -p $publish_pb_port:$publish_pb_port \
-               --link "riak01:seed" \
+               -p $publish_http_port \
+               -p $publish_pb_port \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   else
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
-               -p $publish_http_port:$publish_http_port \
-               -p $publish_pb_port:$publish_pb_port \
+               -p $publish_http_port \
+               -p $publish_pb_port \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   fi
