@@ -55,7 +55,7 @@ DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
 
-  if [[ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]] ; then 
+  if [ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]; then 
     final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
     final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
     publish_http_port="${final_http_port}:8098"
