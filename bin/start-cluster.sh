@@ -1,5 +1,7 @@
 #! /bin/bash
-export DOCKER_HOST=\"tcp://127.0.0.1:2375\"
+
+export DOCKER_HOST="tcp://127.0.0.1:2375"
+
 set -e
 
 if env | grep -q "DOCKER_RIAK_DEBUG"; then
@@ -14,13 +16,13 @@ if [ -z "${DOCKER_HOST}" ]; then
   echo ""
   echo "  export DOCKER_HOST=\"tcp://127.0.0.1:2375\""
   echo ""
+
   
- 
 fi
 
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
-DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-riak_kv_bitcask_backend}
+DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-leveldb}
 
 if sudo docker ps -a | grep "docker.getzephyr.com/riak" >/dev/null; then
   echo ""
@@ -55,7 +57,7 @@ DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
 
-  if [ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]; then 
+  if [ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]; then
     final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
     final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
     publish_http_port="${final_http_port}:8098"
