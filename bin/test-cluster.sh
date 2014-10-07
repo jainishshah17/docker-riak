@@ -1,5 +1,5 @@
 #! /bin/bash
-
+export DOCKER_HOST="tcp://127.0.0.1:2375"
 set -e
 
 if env | grep -q "DOCKER_RIAK_DEBUG"; then
