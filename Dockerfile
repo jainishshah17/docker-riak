@@ -3,7 +3,6 @@
 # VERSION       1.0.0
 
 FROM phusion/baseimage:0.9.14
-
 MAINTAINER Jainish Shah jainish.shah@getzephyr.com
 
 # Environmental variables
