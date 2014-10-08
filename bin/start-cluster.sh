@@ -23,7 +23,7 @@ fi
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-leveldb}
-DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL:-ON}
+DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL:-on}
 
 if sudo docker ps -a | grep "docker.getzephyr.com/riak" >/dev/null; then
   echo ""
