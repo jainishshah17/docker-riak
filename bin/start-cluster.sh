@@ -72,6 +72,7 @@ do
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
                -p $publish_http_port \
                -p $publish_pb_port \
+               --link "riak01:seed" \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   else
