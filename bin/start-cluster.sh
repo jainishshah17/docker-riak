@@ -24,6 +24,7 @@ CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-leveldb}
 DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL:-on}
+DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING:-true}
 
 if sudo docker ps -a | grep "docker.getzephyr.com/riak" >/dev/null; then
   echo ""
@@ -72,7 +73,7 @@ do
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
                -p $publish_http_port \
                -p $publish_pb_port \
-               --link "riak01:seed" \
+	       --link "riak01:seed" \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   else
