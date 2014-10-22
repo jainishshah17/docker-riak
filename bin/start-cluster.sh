@@ -71,7 +71,6 @@ do
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
-               -v /riak${index}/:/var/lib/riak \
                -p 71${index}:$publish_http_port \
                -p 72${index}:$publish_pb_port \
 	       --link "riak01:seed" \
@@ -82,8 +81,7 @@ do
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
-	       -v /riak${index}/:/var/lib/riak \
-               -p 71${index}:$publish_http_port \
+	       -p 71${index}:$publish_http_port \
                -p 72${index}:$publish_pb_port \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
