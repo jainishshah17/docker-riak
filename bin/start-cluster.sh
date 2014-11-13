@@ -58,7 +58,7 @@ DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 
 for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
-
+         sudo rm -f /connect/riak${index}/ring/*
   if [ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]; then
     final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
     final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
@@ -71,8 +71,10 @@ do
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
-               -p 71${index}:$publish_http_port \
-               -p 72${index}:$publish_pb_port \
+               -p 72${index}:$publish_http_port \
+               -p 71${index}:$publish_pb_port \
+			   -v /connect/riak${index}:/var/lib/riak \
+			   -v /connect/riak${index}:/var/log/riak \
 	       --link "riak01:seed" \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
@@ -81,8 +83,10 @@ do
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
 	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
-	       -p 71${index}:$publish_http_port \
-               -p 72${index}:$publish_pb_port \
+	       -p 72${index}:$publish_http_port \
+               -p 71${index}:$publish_pb_port \
+			   -v /connect/riak${index}:/var/lib/riak \
+			   -v /connect/riak${index}:/var/log/riak \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   fi
