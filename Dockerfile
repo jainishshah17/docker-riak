@@ -23,6 +23,7 @@ RUN apt-get install -y riak=${RIAK_VERSION}
 # Setup the Riak service
 RUN mkdir -p /etc/service/riak
 ADD bin/riak.sh /etc/service/riak/run
+ADD bin/autoclustering.sh /auto.sh
 
 # Setup automatic clustering
 ADD bin/automatic_clustering.sh /etc/my_init.d/99_automatic_clustering.sh
@@ -50,4 +51,7 @@ RUN /usr/sbin/enable_insecure_key
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Leverage the baseimage-docker init system
+
 CMD ["/sbin/my_init", "--quiet"]
+
+ 
