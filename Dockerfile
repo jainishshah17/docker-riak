@@ -42,3 +42,17 @@ RUN sed -i.bak 's/listener.http.internal = 127.0.0.1/listener.http.internal = 0.
 # Make Riak's data and log directories volumes
 VOLUME /var/lib/riak
 VOLUME /var/log/riak
+
+# Open ports for HTTP and Protocol Buffers
+EXPOSE 8098 8087
+
+# Enable insecure SSH key
+# See: https://github.com/phusion/baseimage-docker#using_the_insecure_key_for_one_container_only
+RUN /usr/sbin/enable_insecure_key
+
+# Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Leverage the baseimage-docker init system
+
+CMD ["/sbin/my_init", "--quiet"]
