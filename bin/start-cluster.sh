@@ -22,8 +22,6 @@ fi
 
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
-DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-leveldb}
-DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL:-on}
 DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING:-1}
 
 if sudo docker ps -a | grep "docker.getzephyr.com/riak" >/dev/null; then
@@ -69,21 +67,17 @@ do
   if [ "${index}" -gt "1" ] ; then
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
-	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
                -p 72${index}:$publish_http_port \
                -p 71${index}:$publish_pb_port \
 			   -v /connect/riak${index}:/var/lib/riak \
 			   -v /connect/riak${index}:/var/log/riak \
-	       --link "riak01:seed" \
+	             --link "riak01:seed" \
                --name "riak${index}" \
                -d docker.getzephyr.com/riak > /dev/null 2>&1
   else
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
-	       -e "DOCKER_RIAK_CONTROL=${DOCKER_RIAK_CONTROL}" \
-	       -p 72${index}:$publish_http_port \
+                -p 72${index}:$publish_http_port \
                -p 71${index}:$publish_pb_port \
 			   -v /connect/riak${index}:/var/lib/riak \
 			   -v /connect/riak${index}:/var/log/riak \
