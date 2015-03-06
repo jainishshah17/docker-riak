@@ -20,6 +20,9 @@ RUN apt-get update -qq && apt-get install -y software-properties-common && \
 RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb | bash
 RUN apt-get install -y riak=${RIAK_VERSION}
 
+RUN echo "America/Los_Angeles" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
+
+
 # Setup the Riak service
 RUN mkdir -p /etc/service/riak
 ADD bin/riak.sh /etc/service/riak/run
