@@ -7,7 +7,7 @@ MAINTAINER Jainish Shah jainish.shah@getzephyr.com
 
 # Environmental variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV RIAK_VERSION 2.0.2-1
+ENV RIAK_VERSION 2.1.1-1
 
 # Install Java 7
 RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
@@ -17,7 +17,7 @@ RUN apt-get update -qq && apt-get install -y software-properties-common && \
     apt-get install -y oracle-java7-installer
 
 # Install Riak
-RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb | bash
+RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | bash
 RUN apt-get install -y riak=${RIAK_VERSION}
 
 RUN echo "America/Los_Angeles" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
