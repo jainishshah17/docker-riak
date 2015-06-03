@@ -73,7 +73,7 @@ do
 			   -v /connect/riak${index}:/var/log/riak \
 	             --link "riak01:seed" \
                --name "riak${index}" \
-               -d docker.getzephyr.com/riak > /dev/null 2>&1
+               -d docker.getzephyr.com/riak:2.1.1 > /dev/null 2>&1
   else
    sudo docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
@@ -82,7 +82,7 @@ do
 			   -v /connect/riak${index}:/var/lib/riak \
 			   -v /connect/riak${index}:/var/log/riak \
                --name "riak${index}" \
-               -d docker.getzephyr.com/riak > /dev/null 2>&1
+               -d docker.getzephyr.com/riak:2.1.1 > /dev/null 2>&1
   fi
 
   CONTAINER_ID=$(sudo docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
