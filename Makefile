@@ -3,7 +3,7 @@
 all: stop-cluster riak-container start-cluster
 
 build riak-container:
-	sudo  docker build -t "docker.getzephyr.com/riak" .
+	sudo  docker build -t "docker.getzephyr.com/riak2.1.1" .
 
 start-cluster:
 	./bin/start-cluster.sh
